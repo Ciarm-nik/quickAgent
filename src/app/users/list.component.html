@@ -1,0 +1,61 @@
+﻿<form id="searchForm" [formGroup]="searchForm" (ngSubmit)="searchUsers()">
+  <input type="text" name="username" placeholder="Username" formControlName="username">
+  <input type="text" name="firstName" placeholder="Nome" formControlName="firstName">
+  <input type="text" name="lastName" placeholder="Cognome" formControlName="lastName">
+  <input type="text" name="email" placeholder="email" formControlName="email">
+  <label>Stato</label>
+  <select name="active" formControlName="active">
+    <option value="">Qualsiasi</option>
+    <option value="true">Attivo</option>
+    <option value="false">Non attivo</option>
+  </select>
+  <p><button type="submit">Cerca</button></p>
+</form>
+
+<br>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Aggiungi Utente</a>
+<div *ngIf="showList">
+  <table class="table table-striped" *ngIf="users?.length">
+    <thead>
+      <tr>
+        <th style="width: 10%">Username</th>
+        <th style="width: 10%">Nome</th>
+        <th style="width: 10%">Cognome</th>
+        <th style="width: 10%">Registrazione</th>
+        <th style="width: 10%">Ultimo login</th>
+        <th style="width: 10%">Ruoli</th>
+        <th style="width: 10%">Telefono</th>
+        <th style="width: 10%">Email</th>
+        <th style="width: 10%">Email confermata</th>
+        <th style="width: 10%">Attivo</th>
+        <th style="width: 10%">Azioni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.username}}</td>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{ user.registration | date:'dd/MM/yyyy' }}</td>
+        <td>{{user.lastLogin | date:'dd/MM/yyyy' }}</td>
+        <td>{{user.roles}}</td>
+        <td>{{user.telephone}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.confirmEmail ? 'si' : 'no'}}</td>
+        <td>{{user.active ? 'si' : 'no'}}</td>
+        <td style="white-space: nowrap">
+          <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+          <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user"
+            [disabled]="user.isDeleting">
+            <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+            <span *ngIf="!user.isDeleting">Delete</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="users && users.length == 0">Nessun risultato trovato</p>
+  <div class="text-center" *ngIf="loading">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+  </div>
+</div>

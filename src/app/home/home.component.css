@@ -1,0 +1,33 @@
+
+
+#accordionFlushExample{
+    justify-content:center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.accordion-item{
+    flex-direction: column;
+}
+.accordion-button{
+    width: 400px;
+    height: 200px;
+    background-color: transparent;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 23px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px;
+    border: solid 1px #c1c1c1;
+}
+.accordion-body a{
+    font-size: 18px;
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 20px;
+}
+.accordion-button p{
+    margin-left: 10px;
+}
